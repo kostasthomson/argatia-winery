@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// ──────────────────────────────────────────────────────────
+//  Argatia Winery — Firestore Security Rules
+//
+//  Access model:
+//   • Public: anyone can read published news articles
+//   • Admin: only the verified owner UID can write any data
+//
+//  After creating your Firebase project and the single admin
+//  account, replace OWNER_UID below with the actual UID from
+//  Firebase Console → Authentication → Users.
+// ──────────────────────────────────────────────────────────
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── News collection ──────────────────────────────────
+    match /news/{articleId} {
+      // Anyone can read published articles (for the public website)
+      allow read: if resource.data.published == true;
+
+      // Only the authenticated admin can create, update, or delete
+      allow create, update, delete: if isAdmin();
+
+      // Admin can also read unpublished drafts
+      allow read: if isAdmin();
+    }
+
+    // ── Deny everything else by default ──────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ── Helper functions ──────────────────────────────────
+    function isAdmin() {
+      // Replace with your actual admin UID from Firebase Console
+      return request.auth != null
+          && request.auth.uid == "REPLACE_WITH_OWNER_UID";
+    }
+  }
+}

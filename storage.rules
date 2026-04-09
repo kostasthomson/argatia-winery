@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// ──────────────────────────────────────────────────────────
+//  Argatia Winery — Firebase Storage Security Rules
+//
+//  Access model:
+//   • Public: anyone can read news images (served via CDN)
+//   • Admin: only the verified owner UID can upload or delete
+//
+//  Replace OWNER_UID with your Firebase admin user's UID.
+// ──────────────────────────────────────────────────────────
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ── News images ───────────────────────────────────────
+    match /news-images/{imageFile} {
+      // Public read — CDN-served to website visitors
+      allow read: if true;
+
+      // Only admin can write (upload, replace, delete)
+      allow write: if isAdmin();
+    }
+
+    // ── Deny everything else ──────────────────────────────
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // ── Helper ────────────────────────────────────────────
+    function isAdmin() {
+      return request.auth != null
+          && request.auth.uid == "REPLACE_WITH_OWNER_UID";
+    }
+  }
+}

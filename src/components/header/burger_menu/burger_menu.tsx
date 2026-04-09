@@ -1,72 +1,102 @@
 "use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
+import { usePathname, Link, useRouter } from "@/i18n/navigation";
 
+/**
+ * Mobile burger menu component.
+ * Shows a toggleable overlay with all navigation links and a language switcher.
+ * Closes automatically when a link is clicked.
+ */
 export default function BurgerMenu() {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const menuItems = [
-		{ path: "/", label: "Home" },
-		{ path: "/about", label: "About" },
-	];
+  const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("nav");
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
 
-	return (
-		<nav className="relative w-full ps-16">
-			{/* Burger Button */}
-			<button
-				className="p-2 rounded-md focus:outline-none"
-				// focus:ring-2 focus:ring-gray-400
-				onClick={() => setIsMenuOpen((prev) => !prev)}
-				aria-label="Toggle Menu"
-			>
-				<motion.div
-					animate={{ rotate: isMenuOpen ? 90 : 0 }}
-					transition={{ duration: 0.3 }}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="30"
-						height="30"
-						fill="currentColor"
-						className="bi bi-list"
-						viewBox="0 0 16 16"
-					>
-						<path
-							fillRule="evenodd"
-							d="M2 12h12M2 8h12M2 4h12"
-							stroke="black"
-							strokeWidth="1.5"
-							strokeLinecap="round"
-						/>
-					</svg>
-				</motion.div>
-			</button>
+  const navLinks = [
+    { href: "/", label: t("home") },
+    { href: "/about", label: t("about") },
+    { href: "/vineyards", label: t("vineyards") },
+    { href: "/wines", label: t("wines") },
+    { href: "/news", label: t("news") },
+    { href: "/contact", label: t("contact") },
+  ];
 
-			{/* Menu */}
-			<AnimatePresence>
-				{isMenuOpen && (
-					<motion.ul
-						initial={{ opacity: 0, x: 50, y: -10 }}
-						animate={{ opacity: 1, x: 50, y: 15 }}
-						exit={{ opacity: 0, x: 50, y: -10 }}
-						transition={{ duration: 0.3 }}
-						className="absolute top-14 left-0 w-48 bg-white shadow-lg rounded-lg p-4 space-y-2"
-					>
-						{menuItems.map((item) => (
-							<li key={item.path}>
-								<Link
-									className="block p-2 hover:bg-gray-100 rounded-md"
-									href={item.path}
-									prefetch={true}
-									onClick={() => setIsMenuOpen(false)}
-								>
-									{item.label}
-								</Link>
-							</li>
-						))}
-					</motion.ul>
-				)}
-			</AnimatePresence>
-		</nav>
-	);
+  function switchLocale() {
+    const next = locale === "el" ? "en" : "el";
+    router.replace(pathname, { locale: next });
+    setIsOpen(false);
+  }
+
+  return (
+    <div className="relative md:hidden">
+      {/* Burger button */}
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isOpen}
+        className="p-2 rounded-md focus-visible:outline-none"
+      >
+        <motion.div animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.25 }}>
+          {isOpen ? (
+            /* X icon */
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            /* Hamburger icon */
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          )}
+        </motion.div>
+      </button>
+
+      {/* Dropdown menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-12 left-0 w-56 bg-white shadow-xl rounded-xl border border-[var(--color-border)] overflow-hidden z-50"
+          >
+            <nav aria-label="Mobile navigation">
+              <ul className="py-2">
+                {navLinks.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block px-5 py-3 text-sm font-light text-[var(--color-dark)] hover:text-[var(--color-gold)] hover:bg-[var(--color-gold-light)] transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {/* Language switcher */}
+              <div className="border-t border-[var(--color-border)] px-5 py-3">
+                <button
+                  onClick={switchLocale}
+                  className="flex items-center gap-2 text-sm font-light text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors"
+                >
+                  <span className="text-base">{locale === "el" ? "🇬🇧" : "🇬🇷"}</span>
+                  <span>{locale === "el" ? "English" : "Ελληνικά"}</span>
+                </button>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }

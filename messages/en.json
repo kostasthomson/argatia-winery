@@ -1,0 +1,292 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "vineyards": "Vineyards",
+    "wines": "Our Wines",
+    "news": "News",
+    "contact": "Contact",
+    "toggleMenu": "Toggle menu"
+  },
+  "home": {
+    "hero": {
+      "title": "Argatia",
+      "subtitle": "Argatia Winery in Rodochori, Naoussa — where tradition meets innovation at 480m elevation.",
+      "cta": "Discover Our Story"
+    },
+    "news": {
+      "title": "Latest News",
+      "subtitle": "Announcements & Events",
+      "readMore": "Read more",
+      "viewAll": "All News",
+      "noNews": "No news at this time."
+    },
+    "wines": {
+      "title": "Our Wines",
+      "subtitle": "Exceptional labels from our vineyards",
+      "viewAll": "View all wines"
+    },
+    "about": {
+      "title": "Our Story",
+      "subtitle": "Argatia — a tradition born from love for the land and wine",
+      "body": "Our founders united their skills, professional experience, and love for quality viticulture to establish Argatia in 2000. Organic farming, exclusively Greek grape varieties, and wines that express the place they come from.",
+      "learnMore": "Learn more"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About the Winery | Argatia",
+      "description": "The story of Argatia Winery. Founded in 2000 by Panagiotis Georgiadis and Dr. Charoula Spintheropoulou in Rodochori, Naoussa."
+    },
+    "title": "Our Winery",
+    "history": {
+      "title": "Our History",
+      "founding": "Our founders, Panagiotis Georgiadis and Dr. Charoula Spintheropoulou, united their skills, professional experience, their love for quality viticulture and respect for the land, and founded in 2000 the company Georgiadis-Spintheropoulou O.E., under the distinctive title Argatia.",
+      "vineyards": "That same year began the installation of our first vineyards, the cultivation of exclusively Greek grape varieties, and the production of wines that reveal the place they come from. Our organic farming is certified by DHO.",
+      "tourism": "Wishing to contribute to the agritourism development of the region, they created a visitable winery that attracts wine lovers from all over the world.",
+      "secondGen": "In 2025, the founders' children take full control. Christoforos takes over wine production and Konstantinos handles marketing and sales."
+    },
+    "argatia": {
+      "title": "What is Argatia",
+      "text": "Argatia (or Argateia) is a very important institution of the Pontian agricultural society, which according to S. Efstathiadis (1984) is created and established by the need of circumstances and operates in various ways depending on the objectives pursued each time. The institution of Argatia is considered the supreme manifestation of the collective spirit among the populations of Greek origin in Pontus."
+    },
+    "philosophy": {
+      "title": "Our Philosophy",
+      "organic": "Organic Farming",
+      "organicText": "Our vineyards are organically farmed from the very start and certified by DHO.",
+      "greek": "Greek Varieties",
+      "greekText": "Exclusively Greek varieties — Xinomauro, Negoska, Malagousia, Assyrtiko, Mavrodafni.",
+      "terroir": "Terroir",
+      "terroirText": "Wines that reveal their place of origin — expressing the soil, climate, and location's characteristics."
+    },
+    "team": {
+      "title": "Our People",
+      "founders": "Founders",
+      "secondGen": "2nd Generation",
+      "charoula": {
+        "name": "Dr. Charoula Spintheropoulou",
+        "role": "Viticulturist & Co-Founder",
+        "bio": "Charoula Spintheropoulou is the viticulturist of Argatia Winery and co-founder of the company. Having dedicated her life to viticulture and the study of Greek grape varieties, she lays the foundation for producing high-quality grapes that showcase indigenous varieties and the region's terroir."
+      },
+      "panagiotis": {
+        "name": "Panagiotis Georgiadis",
+        "role": "Owner & Co-Founder",
+        "bio": "Born and raised in Rodochori, he returned to his village with a vision: 'To create in our place.' The winery he created with Charoula aims to become synonymous with quality Xinomauro and a winery that wine lovers reference."
+      },
+      "christoforos": {
+        "name": "Christoforos Georgiadis",
+        "role": "Oenologist",
+        "bio": "Graduated from the Oenology School of Drama. He takes over wine production at Argatia with faith in the potential of Greek wines and optimism for the future."
+      },
+      "konstantinos": {
+        "name": "Konstantinos Georgiadis",
+        "role": "Marketing & Sales",
+        "bio": "Studied digital marketing at the American Farm School. His goal: the evolution of the winery and the spread of Argatia wines throughout the world."
+      },
+      "subtitle": "Two generations dedicated to quality"
+    }
+  },
+  "vineyards": {
+    "meta": {
+      "title": "Vineyards & Terroir | Argatia",
+      "description": "Argatia vineyards at three locations — Krasna, Lakka, Xerolacos. Organic farming, Greek grape varieties."
+    },
+    "title": "Vineyards & Terroir",
+    "subtitle": "Three locations, one vision — wines that reveal their land",
+    "organic": {
+      "title": "Organic Farming",
+      "text": "Our vineyards are farmed organically from the beginning of planting and are certified by DHO. The goal of all applied farming techniques is to achieve plants of moderate vigor and robustness, a necessary condition for producing high-quality wines.",
+      "certified": "DHO certified organic farming"
+    },
+    "elevation": "Elevation",
+    "established": "Established",
+    "soil": "Soil Type",
+    "varieties": "Varieties",
+    "rootstock": "Rootstock",
+    "krasna": {
+      "name": "Krasna",
+      "location": "Rodochori, Naoussa",
+      "description": "Krasna is located at 260m elevation. It is an area with gentle terrain, smooth slopes, and sandy-clay to clay-loam soils. Vineyard installation began in 2000, with Xinomauro, Negoska, Malagousia, and Assyrtiko varieties.",
+      "soil": "Sandy-clay to clay-loam"
+    },
+    "lakka": {
+      "name": "Lakka",
+      "location": "Giannakochori, Naoussa",
+      "description": "Lakka is located at 250m elevation with lighter sandy to sandy-loam soils with a little calcium carbonate. Vineyard installation began in 2008, exclusively with Xinomauro.",
+      "soil": "Sandy to sandy-loam"
+    },
+    "xerolacos": {
+      "name": "Xerolacos",
+      "location": "Rodochori, Naoussa",
+      "description": "Our newest vineyard is in Xerolacos, Rodochori, at 550m elevation. Sandy-clay-loam soil with moderate calcium carbonate. Planted in 2020 with Mavrodafni.",
+      "soil": "Sandy-clay-loam"
+    }
+  },
+  "wines": {
+    "meta": {
+      "title": "Our Wines | Argatia",
+      "description": "Exceptional Greek wines from Argatia Winery. Red, White, and the special Argatia Nevma."
+    },
+    "title": "Our Wines",
+    "subtitle": "Exceptional labels from our vineyards in Naoussa",
+    "tastingNotes": "Tasting Notes",
+    "foodPairing": "Food Pairing",
+    "varieties": "Varieties",
+    "aging": "Aging",
+    "production": "Production",
+    "availability": "Availability",
+    "red": {
+      "name": "Argatia Red",
+      "type": "Red Wine",
+      "description": "A multi-variety wine with the dominant variety being Xinomauro, paired with Negoska and Mavrodafni. An especially fruity wine with medium body.",
+      "pairing": "Poultry, pasta with red sauce and cheeses",
+      "tastingNotes": "Red fruits, spices, soft tannins"
+    },
+    "white": {
+      "name": "Argatia White",
+      "type": "White Wine",
+      "description": "Our white wine is produced from Malagousia, Assyrtiko, and Xinomauro varieties. A tank wine that matures on Assyrtiko's fine lees for approximately 2-3 months depending on the vintage.",
+      "pairing": "Fatty fish, seafood pasta, poultry",
+      "tastingNotes": "Citrus, floral notes, fresh acidity"
+    },
+    "nevma": {
+      "name": "Argatia Nevma",
+      "type": "Special Release",
+      "description": "A unique blend of Negoska and Mavrodafni varieties. This wine was 'born' in 2019 and has since been produced in only 650 bottles, and only when the vintage is exceptional.",
+      "pairing": "Traditional cheese pies",
+      "limited": "Limited production of 650 bottles",
+      "tastingNotes": "Dark fruits, chocolate, deep colour"
+    }
+  },
+  "news": {
+    "meta": {
+      "title": "News & Announcements | Argatia",
+      "description": "Latest news from Argatia Winery — events, awards, announcements."
+    },
+    "title": "News & Announcements",
+    "subtitle": "Stay up to date with the latest from the winery",
+    "readMore": "Read more",
+    "backToNews": "Back to News",
+    "publishedOn": "Published on",
+    "author": "Author",
+    "noNews": "No news at this time. Check back soon.",
+    "loadMore": "Load More",
+    "loading": "Loading...",
+    "comingSoon": "News articles will appear here soon. Please check back later."
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact | Argatia",
+      "description": "Contact Argatia Winery. Rodochori, Naoussa, Greece."
+    },
+    "title": "Contact",
+    "subtitle": "Get in touch with us",
+    "address": {
+      "label": "Address",
+      "value": "Rodochori, Naoussa, Imathia, Greece"
+    },
+    "phone": {
+      "label": "Phone",
+      "value": "+30 23320 XXXXX"
+    },
+    "email": {
+      "label": "Email",
+      "value": "info@argatia.gr"
+    },
+    "hours": {
+      "label": "Opening Hours",
+      "weekdays": "Monday - Saturday: 09:00 - 18:00",
+      "sunday": "Sunday: By appointment"
+    },
+    "form": {
+      "title": "Send us a message",
+      "name": "Full Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Message subject",
+      "inquiryType": "Type of inquiry",
+      "inquiryTypes": {
+        "general": "General Information",
+        "tasting": "Wine Tasting",
+        "wholesale": "Wholesale / B2B",
+        "visit": "Winery Visit",
+        "other": "Other"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Write your message...",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "success": "Your message was sent successfully! We'll get back to you soon.",
+      "error": "There was an error. Please try again or contact us at info@argatia.gr."
+    },
+    "social": {
+      "title": "Follow Us",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "youtube": "YouTube"
+    }
+  },
+  "footer": {
+    "tagline": "Traditional winery in Naoussa committed to quality and tradition.",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "copyright": "© {year} Argatia Winery. All rights reserved.",
+    "organicCertified": "Certified organic farming",
+    "organic": "Organic Wines",
+    "navigate": "Navigate",
+    "contact": "Contact",
+    "address": "Rodochori, Naoussa, 59200, Greece",
+    "phone": "+30 2332 0 22000",
+    "rights": "All rights reserved.",
+    "location": "Rodochori, Naoussa, Macedonia"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "back": "Back",
+    "close": "Close",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "submitting": "Signing in...",
+      "error": "Invalid credentials. Please try again.",
+      "forgotPassword": "Forgot password?"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome",
+      "news": "News",
+      "createNews": "New Article",
+      "logout": "Sign Out"
+    },
+    "newsForm": {
+      "create": "New Article",
+      "edit": "Edit Article",
+      "titleEl": "Title (Greek)",
+      "titleEn": "Title (English)",
+      "contentEl": "Content (Greek) — Markdown",
+      "contentEn": "Content (English) — Markdown",
+      "excerpt": "Excerpt (for preview)",
+      "image": "Image",
+      "uploadImage": "Upload Image",
+      "featured": "Show on Home Page",
+      "published": "Published",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete this article?",
+      "preview": "Preview"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "krasna",
+    "name_el": "Κράσνα",
+    "name_en": "Krasna",
+    "location_el": "Ροδοχώρι, Νάουσα",
+    "location_en": "Rodochori, Naoussa",
+    "elevationM": 260,
+    "established": 2000,
+    "soil_el": "Αμμοαργιλώδη ως αργιλοπηλώδη",
+    "soil_en": "Sandy-clay to clay-loam",
+    "varieties": ["Ξινόμαυρο (V6, V3)", "Νεγκόσκα", "Μαλαγουζιά", "Ασύρτικο"],
+    "rootstock": ["1103 Paulsen"],
+    "description_el": "Η Κράσνα βρίσκεται σε υψόμετρο 260μ. Είναι μια περιοχή με ήπιο ανάγλυφο, ομαλές κλίσεις και αμμοαργιλώδη ως αργιλοπηλώδη εδάφη. Η εγκατάσταση των αμπελώνων ξεκίνησε το 2000, με τις ποικιλίες Ξινόμαυρο (κλώνος V6 και V3), Νεγκόσκα, Μαλαγουζιά και Ασύρτικο εμβολιασμένες στο υποκείμενο 1103 Paulsen, ενώ το 2019 φυτεύτηκε άλλος ένας αμπελώνας με Ασύρτικο στο ίδιο υποκείμενο.",
+    "description_en": "Krasna is located at 260m elevation. It is an area with gentle terrain, smooth slopes, and sandy-clay to clay-loam soils. Vineyard installation began in 2000, with Xinomauro (clones V6 and V3), Negoska, Malagousia, and Assyrtiko varieties grafted onto 1103 Paulsen rootstock. In 2019, another Assyrtiko vineyard was planted on the same rootstock.",
+    "coordinates": [40.695, 22.018],
+    "image": "/images/vineyards/krasna.jpg"
+  },
+  {
+    "id": "lakka",
+    "name_el": "Λάκκα",
+    "name_en": "Lakka",
+    "location_el": "Γιαννακοχώρι, Νάουσα",
+    "location_en": "Giannakochori, Naoussa",
+    "elevationM": 250,
+    "established": 2008,
+    "soil_el": "Αμμώδη ως αμμοπηλώδη",
+    "soil_en": "Sandy to sandy-loam",
+    "varieties": ["Ξινόμαυρο (V6, V3)"],
+    "rootstock": ["1103 Paulsen"],
+    "description_el": "Η Λάκκα βρίσκεται λίγο χαμηλότερα σε υψόμετρο 250μ και περιλαμβάνει πιο ελαφρά αμμώδη ως αμμοπηλώδη εδάφη με λίγο ανθρακικό ασβέστιο. Η εγκατάσταση των αμπελώνων ξεκίνησε το 2008, αποκλειστικά με Ξινόμαυρο (κλώνος V6 και V3) εμβολιασμένο στο 1103 Paulsen.",
+    "description_en": "Lakka is located slightly lower at 250m elevation and features lighter sandy to sandy-loam soils with a little calcium carbonate. Vineyard installation began in 2008, exclusively with Xinomauro (clones V6 and V3) grafted onto 1103 Paulsen rootstock.",
+    "coordinates": [40.681, 22.025],
+    "image": "/images/vineyards/lakka.jpg"
+  },
+  {
+    "id": "xerolacos",
+    "name_el": "Ξερόλακκος",
+    "name_en": "Xerolacos",
+    "location_el": "Ροδοχώρι, Νάουσα",
+    "location_en": "Rodochori, Naoussa",
+    "elevationM": 550,
+    "established": 2020,
+    "soil_el": "Αμμοαργιλοπηλώδες",
+    "soil_en": "Sandy-clay-loam",
+    "varieties": ["Μαυροδάφνη"],
+    "rootstock": ["110R"],
+    "description_el": "Ο νεότερος αμπελώνας μας βρίσκεται στην τοποθεσία Ξερόλακκος Ροδοχωρίου, σε υψόμετρο 550μ., με έδαφος αμμοαργιλοπηλώδες με μέτριο ανθρακικό ασβέστιο. Φυτεύτηκε το 2020 με την ποικιλία Μαυροδάφνη εμβολιασμένη στο υποκείμενο 110R.",
+    "description_en": "Our newest vineyard is located in Xerolacos, Rodochori, at 550m elevation, with sandy-clay-loam soil and moderate calcium carbonate. It was planted in 2020 with Mavrodafni variety grafted onto 110R rootstock.",
+    "coordinates": [40.698, 22.015],
+    "image": "/images/vineyards/xerolacos.jpg"
+  }
+]
