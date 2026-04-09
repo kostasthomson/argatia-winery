@@ -48,7 +48,7 @@ export default function HomePage() {
         className="relative flex items-center justify-center min-h-screen text-center text-white -mt-20 md:-mt-24"
         style={{
           background:
-            "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.35)), url('/images/vineyard.jpg') center/cover no-repeat",
+            "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.35))" //, url('/images/vineyard.jpg') center/cover no-repeat",
         }}
         aria-label="Hero section"
       >

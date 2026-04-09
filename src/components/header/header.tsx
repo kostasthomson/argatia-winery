@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { usePathname, Link, useRouter } from "@/i18n/navigation";
-import logoImg from "../../../public/images/logo.jpeg";
+import logoImg from "../../../public/images/logo.png";
 import BurgerMenu from "./burger_menu/burger_menu";
 
 /**

@@ -13,7 +13,7 @@
     "pairing_en": "Poultry, pasta with red sauce, cheeses",
     "aging_el": "Ωρίμανση σε δεξαμενή",
     "aging_en": "Tank aged",
-    "image": "/images/wines/red.jpg",
+    "image": "/images/wines/red.png",
     "order": 1
   },
   {
@@ -30,7 +30,7 @@
     "pairing_en": "Fatty fish, seafood pasta, poultry",
     "aging_el": "2-3 μήνες στις φίνες λάσπες, 1 χρόνο στη φιάλη",
     "aging_en": "2-3 months on fine lees, 1 year in bottle",
-    "image": "/images/wines/white.jpg",
+    "image": "/images/wines/white.png",
     "order": 2
   },
   {
@@ -48,7 +48,7 @@
     "aging_el": "Ωρίμανση κατόπιν εξαιρετικής χρονιάς",
     "aging_en": "Aged only in exceptional vintages",
     "productionBottles": 650,
-    "image": "/images/wines/nevma.jpg",
+    "image": "/images/wines/nevma.png",
     "order": 3
   }
 ]
