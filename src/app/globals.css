@@ -275,18 +275,50 @@ h6 {
   color: #aaa;
 }
 
+/* Error state — red border + glow on invalid inputs */
+.form-input[aria-invalid="true"],
+.form-input.is-invalid {
+  border-color: #dc2626;
+}
+
+.form-input[aria-invalid="true"]:focus,
+.form-input.is-invalid:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
 .form-label {
   display: block;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-dark);
   margin-bottom: 0.4rem;
+  transition: color 0.2s ease;
+}
+
+/* Error state label — turns red when sibling input is invalid */
+.form-label.is-invalid {
+  color: #dc2626;
 }
 
 .form-error {
-  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
   color: #dc2626;
-  margin-top: 0.3rem;
+  margin-top: 0.4rem;
+  line-height: 1.4;
+}
+
+/* Small red dot before error message */
+.form-error::before {
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #dc2626;
 }
 
 /* ============================================================

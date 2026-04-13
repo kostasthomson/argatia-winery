@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import winesData from "@/data/wines.json";
+import FeaturedNews from "@/components/home/featured-news";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -32,7 +33,7 @@ export default function HomePage() {
   const hero = useTranslations("home.hero");
   const about = useTranslations("home.about");
   const winesT = useTranslations("home.wines");
-  const newsT = useTranslations("home.news");
+
   const winesDetail = useTranslations("wines");
   const nav = useTranslations("nav");
 
@@ -154,38 +155,9 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          FEATURED NEWS PLACEHOLDER
-          When Firebase is connected, this section will render
-          the 4-5 latest featured news items via SWR.
-          For now it shows a static teaser section.
+          FEATURED NEWS
       ══════════════════════════════════════════ */}
-      <section id="news" className="section" aria-labelledby="news-heading">
-        <div className="container mx-auto px-6 max-w-[1200px]">
-          <h2 id="news-heading" className="section-title">{newsT("title")}</h2>
-          <p className="section-subtitle">{newsT("subtitle")}</p>
-
-          {/* Placeholder grid — replaced with dynamic cards in Week 4 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <article key={i} className="card fade-in" aria-hidden="true">
-                <div className="h-48 bg-gradient-to-br from-[var(--color-background)] to-[var(--color-gold-light)] animate-pulse" />
-                <div className="p-6 space-y-3">
-                  <div className="h-3 bg-gray-200 rounded animate-pulse w-1/3" />
-                  <div className="h-5 bg-gray-200 rounded animate-pulse w-4/5" />
-                  <div className="h-3 bg-gray-200 rounded animate-pulse w-full" />
-                  <div className="h-3 bg-gray-200 rounded animate-pulse w-3/4" />
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/news" className="btn btn-outline text-sm tracking-widest uppercase">
-              {newsT("viewAll")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <FeaturedNews />
 
       {/* ══════════════════════════════════════════
           VINEYARD TEASER BANNER

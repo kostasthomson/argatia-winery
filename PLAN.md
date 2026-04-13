@@ -275,31 +275,53 @@ Auth is entirely client-side (no server session cookies). The Firestore rules ar
 - `/admin` — protected dashboard shell with quick-action cards
 - `firestore.rules` + `storage.rules`
 
-### Week 4 — News Management
+### Week 4 — News Management ✅ Complete
 
-- `src/lib/firestore.ts` — Firestore CRUD helpers for news
-- `src/lib/storage.ts` — Firebase Storage upload/delete helpers
-- `src/hooks/useNews.ts` — SWR hooks (`useNewsList`, `useNewsItem`, `useFeaturedNews`)
-- `src/app/api/news/route.ts` — `GET` published news (public, paginated)
-- `src/app/api/news/[id]/route.ts` — `GET` single article
-- `src/app/api/admin/news/route.ts` — `POST` (create), admin-only
-- `src/app/api/admin/news/[id]/route.ts` — `PATCH` (update), `DELETE`, admin-only
-- `/admin/news` — admin news list with publish/unpublish toggles
-- `/admin/news/new` — create form (bilingual fields, Markdown editor, image upload)
-- `/admin/news/[id]` — edit form
-- Home page featured news section wired to Firestore (replaces placeholder skeleton)
-- `src/app/[locale]/news/[slug]/page.tsx` — public article view with `react-markdown`
+**Architecture decision:** Admin writes go directly through the Firebase client SDK (no server-side admin routes needed — Firestore rules are the true security layer). API routes cover public reads only.
 
-### Week 5 — Performance & Security
+**Library layer:**
+- `src/lib/validation.ts` — HTML-aware validation (`requireHtmlContent` strips tags before checking emptiness); `toOptionalString`/`toOptionalHtml` return `undefined` (not `""`) so Firestore never receives empty optional fields
+- `src/lib/storage.ts` — `uploadNewsImage`, `deleteNewsImage` (silent failure)
+- `src/lib/news.ts` — Full Firestore CRUD with `stripUndefined()` utility to prevent `invalid data: undefined` write errors; cursor-based pagination; `toClientNewsItem` Timestamp → ISO converter
 
-- `next/image` audit across all pages (lazy loading, priority on hero)
-- Dynamic import for Markdown renderer (admin only)
-- SWR cache configuration (5 min stale-while-revalidate for news)
-- Input sanitisation for all Markdown content (DOMPurify)
-- Rate limiting on contact form API route (5 req/hr per IP)
-- Lighthouse audit — target >90 on all pages
-- WCAG 2.1 AA accessibility audit
-- `src/lib/validation.ts` — shared Zod schemas for form + API validation
+**API routes (public reads only):**
+- `src/app/api/news/route.ts` — `GET` published news (paginated, cached, `force-dynamic`)
+- `src/app/api/news/[id]/route.ts` — `GET` single published article
+
+**Hooks:**
+- `src/hooks/useNews.ts` — `useNewsList`, `useFeaturedNews`, `useNewsItem` (SWR via API); `useAdminNewsList`, `useAdminNewsItem` (SWR directly against Firestore for draft access)
+
+**Components:**
+- `src/components/news/news-card.tsx` — Bilingual public news card
+- `src/components/news/news-grid.tsx` — Paginated grid with load-more, skeleton, empty/error states
+- `src/components/home/featured-news.tsx` — Home page featured news (replaces static skeleton)
+- `src/components/admin/admin-header.tsx` — Shared admin top bar
+- `src/components/admin/rich-text-editor.tsx` — TipTap WYSIWYG editor (bold, italic, underline, headings H2–H4, lists, blockquote, HR, alignment, link, image, undo/redo); full error-state styling
+- `src/components/admin/news-form.tsx` — Bilingual create/edit form; WYSIWYG content; image upload with preview; publish/featured toggles; preview panel (DOMPurify HTML); delete with confirmation; validation summary banner; scroll-to-first-error; red label/border/glow on invalid fields
+
+**Pages:**
+- `src/app/admin/news/page.tsx` — Admin news list (all articles incl. drafts), publish/featured toggles
+- `src/app/admin/news/new/page.tsx` — Create article
+- `src/app/admin/news/[id]/page.tsx` — Edit article (loading/404 states)
+- `src/app/[locale]/news/[id]/page.tsx` — Public article view; DOMPurify-sanitized HTML rendering
+
+**Integrations:**
+- Home page news section replaced with `<FeaturedNews />`
+- News listing page replaced with `<NewsGrid />` (async server component)
+- Admin dashboard "coming soon" placeholder removed
+
+### Week 5 — Performance, Security & Polish
+
+- [ ] **`@tailwindcss/typography` plugin** — install and configure `prose` styles for public article body; ensure gold/serif overrides match brand
+- [ ] **`next/image` audit** — verify `priority` on all hero images; add explicit `sizes` props to all `<Image>` components; lazy load below-the-fold images
+- [ ] **Contact form API route** (`src/app/api/contact/route.ts`) — wire up the contact form (currently falls back to `mailto:`); server-side validation; rate limiting (5 req/hr per IP using in-memory or Upstash)
+- [ ] **JSON-LD structured data** — `NewsArticle` schema on `/[locale]/news/[id]`; `Organization` + `WineProduct` schemas on home/wines pages
+- [ ] **`sitemap.xml`** — static pages + dynamic news article URLs (`/api/news` feed); both locales
+- [ ] **`robots.txt`** — allow `/`, disallow `/admin`
+- [ ] **Lighthouse audit** — run on Home, News, Article pages; target > 90 Performance, Accessibility, Best Practices, SEO; fix any regressions
+- [ ] **WCAG 2.1 AA pass** — focus ring visibility, colour contrast ratios, skip-link, screen reader labels on icon buttons
+- [ ] **Firestore rules finalisation** — replace `REPLACE_WITH_OWNER_UID` with real UID; deploy rules
+- [ ] **ISR on news listing** — add `revalidate` export to `/[locale]/news/page.tsx` once Firebase credentials are live
 
 ### Week 6 — SEO, Docs & Launch
 

@@ -95,16 +95,6 @@ function Dashboard() {
           ))}
         </div>
 
-        {/* Status notice — Firebase news coming in Week 4 */}
-        <div className="rounded-xl border border-dashed border-[#c69d53] border-opacity-40 bg-amber-50 bg-opacity-30 p-8 text-center">
-          <p className="text-3xl mb-3" aria-hidden="true">🔧</p>
-          <h3 className="text-lg font-light text-[#2c2c2c] mb-2" style={{ fontFamily: "Georgia, serif" }}>
-            News management — coming next
-          </h3>
-          <p className="text-sm text-gray-500 font-light">
-            Firestore CRUD, image uploads, and the full news editor will be wired up in the next phase.
-          </p>
-        </div>
       </main>
     </div>
   );

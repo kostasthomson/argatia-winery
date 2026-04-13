@@ -36,7 +36,7 @@ service cloud.firestore {
     function isAdmin() {
       // Replace with your actual admin UID from Firebase Console
       return request.auth != null
-          && request.auth.uid == "REPLACE_WITH_OWNER_UID";
+          && request.auth.uid == "NqFsQWPtT0ZIjSmryPyeiFfZLFt1";
     }
   }
 }

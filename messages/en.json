@@ -172,7 +172,8 @@
     "noNews": "No news at this time. Check back soon.",
     "loadMore": "Load More",
     "loading": "Loading...",
-    "comingSoon": "News articles will appear here soon. Please check back later."
+    "comingSoon": "News articles will appear here soon. Please check back later.",
+    "articleNotFound": "Article not found."
   },
   "contact": {
     "meta": {
@@ -269,13 +270,21 @@
       "createNews": "New Article",
       "logout": "Sign Out"
     },
+    "newsList": {
+      "title": "Manage News",
+      "createNew": "New Article",
+      "noArticles": "No articles yet. Create your first!",
+      "edit": "Edit",
+      "draft": "Draft",
+      "publishedLabel": "Published"
+    },
     "newsForm": {
       "create": "New Article",
       "edit": "Edit Article",
       "titleEl": "Title (Greek)",
       "titleEn": "Title (English)",
-      "contentEl": "Content (Greek) — Markdown",
-      "contentEn": "Content (English) — Markdown",
+      "contentEl": "Content (Greek)",
+      "contentEn": "Content (English)",
       "excerpt": "Excerpt (for preview)",
       "image": "Image",
       "uploadImage": "Upload Image",
@@ -286,7 +295,18 @@
       "cancel": "Cancel",
       "delete": "Delete",
       "deleteConfirm": "Are you sure you want to delete this article?",
-      "preview": "Preview"
+      "preview": "Preview",
+      "imageRemove": "Remove image",
+      "imageRequirements": "JPG, PNG or WebP. Max 5MB.",
+      "savedSuccess": "Article saved successfully.",
+      "deletedSuccess": "Article deleted.",
+      "errorSaving": "Error saving article.",
+      "errorDeleting": "Error deleting article.",
+      "excerptEl": "Excerpt (Greek)",
+      "excerptEn": "Excerpt (English)",
+      "imageAltEl": "Image alt text (Greek)",
+      "imageAltEn": "Image alt text (English)",
+      "authorLabel": "Author"
     }
   }
 }
