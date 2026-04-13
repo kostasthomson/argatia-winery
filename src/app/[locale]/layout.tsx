@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
+import Main from "@/components/main/main";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -64,9 +65,9 @@ export default async function LocaleLayout({
       </a>
       <Header />
       {/* pt-20/pt-24 offsets the fixed header height on mobile/desktop */}
-      <main id="main-content" className="flex flex-col min-h-screen pt-20 md:pt-24">
+      <Main id="main-content" className="flex flex-col min-h-screen pt-20 md:pt-24">
         {children}
-      </main>
+      </Main>
       <Footer />
     </NextIntlClientProvider>
   );

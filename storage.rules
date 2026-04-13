@@ -30,7 +30,7 @@ service firebase.storage {
     // ── Helper ────────────────────────────────────────────
     function isAdmin() {
       return request.auth != null
-          && request.auth.uid == "REPLACE_WITH_OWNER_UID";
+          && request.auth.uid == "NqFsQWPtT0ZIjSmryPyeiFfZLFt1";
     }
   }
 }

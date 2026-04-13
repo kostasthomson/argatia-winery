@@ -15,128 +15,142 @@ import BurgerMenu from "./burger_menu/burger_menu";
  *
  * The header transitions from transparent (over the hero) to a white frosted-glass
  * background once the user scrolls past 60px, improving readability on inner pages.
+ *
+ * Logo is logo.png (white background). In transparent mode a pill backdrop is applied
+ * so the white-bg logo reads cleanly against the dark hero image.
  */
 export default function Header() {
-  const t = useTranslations("nav");
-  const locale = useLocale();
-  const pathname = usePathname();
-  const router = useRouter();
-  const [scrolled, setScrolled] = useState(false);
+	const t = useTranslations("nav");
+	const locale = useLocale();
+	const pathname = usePathname();
+	const router = useRouter();
+	const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 60);
-    }
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+	useEffect(() => {
+		function handleScroll() {
+			setScrolled(window.scrollY > 60);
+		}
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
-  const leftLinks = [
-    { href: "/", label: t("home") },
-    { href: "/about", label: t("about") },
-    { href: "/vineyards", label: t("vineyards") },
-  ];
+	const leftLinks = [
+		{ href: "/", label: t("home") },
+		{ href: "/about", label: t("about") },
+		{ href: "/vineyards", label: t("vineyards") },
+	];
 
-  const rightLinks = [
-    { href: "/wines", label: t("wines") },
-    { href: "/news", label: t("news") },
-    { href: "/contact", label: t("contact") },
-  ];
+	const rightLinks = [
+		{ href: "/wines", label: t("wines") },
+		{ href: "/news", label: t("news") },
+		{ href: "/contact", label: t("contact") },
+	];
 
-  function switchLocale() {
-    const next = locale === "el" ? "en" : "el";
-    router.replace(pathname, { locale: next });
-  }
+	function switchLocale() {
+		const next = locale === "el" ? "en" : "el";
+		router.replace(pathname, { locale: next });
+	}
 
-  /** Returns true when the given href matches the current page path. */
-  function isActive(href: string) {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  }
+	/** Returns true when the given href matches the current page path. */
+	function isActive(href: string) {
+		if (href === "/") return pathname === "/";
+		return pathname.startsWith(href);
+	}
 
-  const headerBg = scrolled
-    ? "bg-white/95 backdrop-blur-sm shadow-md"
-    : "bg-transparent";
+	const headerBg = scrolled
+		? "bg-white/95 backdrop-blur-sm shadow-md"
+		: "bg-transparent";
 
-  const linkColor = scrolled ? "text-[var(--color-dark)]" : "text-white";
-  const logoFilter = scrolled ? "" : "brightness-0 invert";
+	const isHero = !scrolled && pathname === "/";
 
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${headerBg}`}
-      role="banner"
-    >
-      <div className="container mx-auto px-6 max-w-[1200px]">
-        <div className="flex items-center justify-between h-20 md:grid md:grid-cols-3 md:h-24">
+	const linkColor = isHero ? "text-white" : "text-[var(--color-dark)]";
 
-          {/* ── Mobile: Burger (left slot) ── */}
-          <div className="md:hidden">
-            <BurgerMenu />
-          </div>
+	// logo.png has white background — no invert filter needed.
+	// In transparent (hero) mode, wrap in a pill so white bg reads against dark hero.
+	const logoPillClass = scrolled
+		? ""
+		: "bg-white/90 rounded-2xl px-4 py-1 shadow-sm";
 
-          {/* ── Desktop: Left nav links ── */}
-          <nav
-            className="hidden md:flex items-center gap-6 justify-start"
-            aria-label="Primary navigation left"
-          >
-            {leftLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`nav-link text-sm tracking-wide uppercase ${linkColor} ${isActive(href) ? "active" : ""}`}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+	const localeColor = isHero
+		? "border-white text-white hover:bg-white hover:text-[var(--color-dark)]"
+		: "border-[var(--color-gold)] text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-white";
 
-          {/* ── Logo (center) ── */}
-          <div className="flex justify-center items-center">
-            <Link href="/" aria-label="Argatia Winery — home">
-              <Image
-                src={logoImg}
-                alt="Argatia Winery Logo"
-                width={160}
-                height={80}
-                className={`h-16 md:h-20 w-auto object-contain transition-all duration-300 ${logoFilter}`}
-                priority
-              />
-            </Link>
-          </div>
+	return (
+		<header
+			className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${headerBg}`}
+			role="banner"
+		>
+			<div className="container mx-auto px-6 max-w-[1200px]">
+				<div className="flex items-center justify-between h-20 md:grid md:grid-cols-3 md:h-24">
+					{/* ── Mobile: Burger (left slot) ── */}
+					<div className="md:hidden">
+						<BurgerMenu />
+					</div>
 
-          {/* ── Desktop: Right nav links + language switcher ── */}
-          <nav
-            className="hidden md:flex items-center gap-6 justify-end"
-            aria-label="Primary navigation right"
-          >
-            {rightLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`nav-link text-sm tracking-wide uppercase ${linkColor} ${isActive(href) ? "active" : ""}`}
-              >
-                {label}
-              </Link>
-            ))}
+					{/* ── Desktop: Left nav links ── */}
+					<nav
+						className="hidden md:flex items-center gap-6 justify-start"
+						aria-label="Primary navigation left"
+					>
+						{leftLinks.map(({ href, label }) => (
+							<Link
+								key={href}
+								href={href}
+								className={`nav-link text-sm tracking-wide uppercase ${linkColor} ${isActive(href) ? "active" : ""}`}
+							>
+								{label}
+							</Link>
+						))}
+					</nav>
 
-            {/* Language switcher */}
-            <button
-              onClick={switchLocale}
-              aria-label={locale === "el" ? "Switch to English" : "Μετάβαση στα Ελληνικά"}
-              className={`text-xs tracking-widest uppercase font-medium px-2 py-1 border rounded transition-colors duration-200 ${
-                scrolled
-                  ? "border-[var(--color-gold)] text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-white"
-                  : "border-white text-white hover:bg-white hover:text-[var(--color-dark)]"
-              }`}
-            >
-              {locale === "el" ? "EN" : "EL"}
-            </button>
-          </nav>
+					{/* ── Logo (center) ── */}
+					<div className="flex justify-center items-center">
+						<Link href="/" aria-label="Argatia Winery — home">
+							{/* <div className={`transition-all duration-300`}> */}
+							<div className={`transition-all duration-300 ${logoPillClass}`}>
+								<Image
+									src={logoImg}
+									alt="Argatia Winery Logo"
+									width={200}
+									height={96}
+									className="h-14 md:h-16 w-auto object-contain"
+									priority
+								/>
+							</div>
+						</Link>
+					</div>
 
-          {/* ── Mobile: empty right slot for balance ── */}
-          <div className="md:hidden w-10" aria-hidden="true" />
-        </div>
-      </div>
-    </header>
-  );
+					{/* ── Desktop: Right nav links + language switcher ── */}
+					<nav
+						className="hidden md:flex items-center gap-6 justify-end"
+						aria-label="Primary navigation right"
+					>
+						{rightLinks.map(({ href, label }) => (
+							<Link
+								key={href}
+								href={href}
+								className={`nav-link text-sm tracking-wide uppercase ${linkColor} ${isActive(href) ? "active" : ""}`}
+							>
+								{label}
+							</Link>
+						))}
+
+						{/* Language switcher */}
+						<button
+							onClick={switchLocale}
+							aria-label={
+								locale === "el" ? "Switch to English" : "Μετάβαση στα Ελληνικά"
+							}
+							className={`text-xs tracking-widest uppercase font-medium px-2 py-1 border rounded transition-colors duration-200 ${localeColor}`}
+						>
+							{locale === "el" ? "EN" : "EL"}
+						</button>
+					</nav>
+
+					{/* ── Mobile: empty right slot for balance ── */}
+					<div className="md:hidden w-10" aria-hidden="true" />
+				</div>
+			</div>
+		</header>
+	);
 }

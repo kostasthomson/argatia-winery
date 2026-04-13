@@ -71,7 +71,7 @@
       "panagiotis": {
         "name": "Panagiotis Georgiadis",
         "role": "Owner & Co-Founder",
-        "bio": "Born and raised in Rodochori, he returned to his village with a vision: 'To create in our place.' The winery he created with Charoula aims to become synonymous with quality Xinomauro and a winery that wine lovers reference."
+        "bio": "Born and raised in Rodochori, he was active in Naoussa, then Thessaloniki, Athens, and finally returned to Rodochori. His bond and memories from village life defined his business choices. His vision: 'To create in our place.' His goal: the winery he and Charoula Spintheropoulou built to become synonymous with quality Xinomauro and a winery that wine lovers reference."
       },
       "christoforos": {
         "name": "Christoforos Georgiadis",
@@ -106,19 +106,19 @@
     "krasna": {
       "name": "Krasna",
       "location": "Rodochori, Naoussa",
-      "description": "Krasna is located at 260m elevation. It is an area with gentle terrain, smooth slopes, and sandy-clay to clay-loam soils. Vineyard installation began in 2000, with Xinomauro, Negoska, Malagousia, and Assyrtiko varieties.",
+      "description": "Krasna is located at 260m elevation. It is an area with gentle terrain, smooth slopes, and sandy-clay to clay-loam soils. Vineyard installation began in 2000, with Xinomauro (clones V6 and V3), Negoska, Malagousia, and Assyrtiko varieties grafted onto 1103 Paulsen rootstock. In 2019, another Assyrtiko vineyard was planted on the same rootstock.",
       "soil": "Sandy-clay to clay-loam"
     },
     "lakka": {
       "name": "Lakka",
       "location": "Giannakochori, Naoussa",
-      "description": "Lakka is located at 250m elevation with lighter sandy to sandy-loam soils with a little calcium carbonate. Vineyard installation began in 2008, exclusively with Xinomauro.",
+      "description": "Lakka is located slightly lower at 250m elevation and features lighter sandy to sandy-loam soils with a little calcium carbonate. Vineyard installation began in 2008, exclusively with Xinomauro (clones V6 and V3) grafted onto 1103 Paulsen rootstock.",
       "soil": "Sandy to sandy-loam"
     },
     "xerolacos": {
       "name": "Xerolacos",
       "location": "Rodochori, Naoussa",
-      "description": "Our newest vineyard is in Xerolacos, Rodochori, at 550m elevation. Sandy-clay-loam soil with moderate calcium carbonate. Planted in 2020 with Mavrodafni.",
+      "description": "Our newest vineyard is located in Xerolacos, Rodochori, at 550m elevation, with sandy-clay-loam soil and moderate calcium carbonate. It was planted in 2020 with Mavrodafni variety grafted onto 110R rootstock.",
       "soil": "Sandy-clay-loam"
     }
   },

@@ -10,6 +10,7 @@
   /* Brand Colors */
   --color-gold: #c69d53;
   --color-gold-dark: #b8925a;
+  --color-gold-white: hsl(39, 50%, 65%);
   --color-gold-light: rgba(198, 157, 83, 0.1);
   --color-gold-medium: rgba(198, 157, 83, 0.3);
   --color-dark: #2c2c2c;
@@ -79,7 +80,7 @@ h6 {
   font-family: var(--font-serif);
   font-weight: 300;
   line-height: 1.3;
-  color: var(--color-dark);
+  color: var(--color-gold-white);
 }
 
 /* Section titles with gold underline accent */
@@ -215,7 +216,7 @@ h6 {
 
 .nav-link {
   text-decoration: none;
-  color: var(--color-dark);
+  /* color: var(--color-dark); */
   font-weight: 300;
   font-size: 0.95rem;
   transition: color 0.3s ease;

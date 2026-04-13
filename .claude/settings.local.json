@@ -4,7 +4,9 @@
       "Bash(npm run:*)",
       "Bash(npm install:*)",
       "Bash(ls C:/Projects/argatia/argatia-winery/src/app/[locale]/)",
-      "Bash(npm list:*)"
+      "Bash(npm list:*)",
+      "Bash(ls -la /c/Projects/argatia/argatia-winery/public/images/logo*)",
+      "Bash(file /c/Projects/argatia/argatia-winery/public/images/logo*)"
     ]
   }
 }
