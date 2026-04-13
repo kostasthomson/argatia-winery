@@ -56,13 +56,23 @@ export default function ContactForm() {
     setStatus("submitting");
 
     try {
-      // TODO (Week 5): replace with POST to /api/contact with rate limiting
-      // For now, open mailto as a graceful fallback
-      const subject = encodeURIComponent(form.subject || form.inquiryType);
-      const body = encodeURIComponent(
-        `Name: ${form.name}\nEmail: ${form.email}\nType: ${form.inquiryType}\n\n${form.message}`
-      );
-      window.location.href = `mailto:info@argatia.gr?subject=${subject}&body=${body}`;
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (res.status === 429) {
+        setStatus("error");
+        setErrors({ message: "Too many requests. Please try again later." });
+        return;
+      }
+
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
       setStatus("success");
     } catch {
       setStatus("error");

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ============================================================
    DESIGN SYSTEM VARIABLES
@@ -405,6 +406,53 @@ h6 {
   height: 2px;
   background: var(--color-gold);
   margin: 1rem auto;
+}
+
+/* ============================================================
+   PROSE (article body) BRAND OVERRIDES
+   Applied to public news article rendering.
+   ============================================================ */
+
+.prose {
+  color: var(--color-dark);
+  font-weight: 300;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--color-dark);
+}
+
+.prose a {
+  color: var(--color-gold);
+  text-decoration: none;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+  color: var(--color-gold-dark);
+}
+
+.prose blockquote {
+  border-left-color: var(--color-gold);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.prose hr {
+  border-color: var(--color-border);
+}
+
+.prose img {
+  border-radius: 0.5rem;
+}
+
+.prose strong {
+  font-weight: 600;
 }
 
 /* ============================================================

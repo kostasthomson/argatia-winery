@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,16 +38,24 @@ export const metadata: Metadata = {
 
 /**
  * Root layout — minimal HTML shell.
- * Locale-specific layout with Header/Footer/providers
- * is in src/app/[locale]/layout.tsx
+ * Reads locale via next-intl to set the lang attribute on <html>.
+ * Falls back to "el" for non-locale routes (e.g. /admin).
+ * Locale-specific layout with Header/Footer/providers is in src/app/[locale]/layout.tsx.
  */
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let locale = "el";
+  try {
+    locale = await getLocale();
+  } catch {
+    // Not in a locale context (admin routes, API routes, etc.)
+  }
+
   return (
-    <html suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

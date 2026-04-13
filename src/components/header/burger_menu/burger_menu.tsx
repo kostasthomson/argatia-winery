@@ -39,7 +39,8 @@ export default function BurgerMenu() {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
-        className="p-2 rounded-md focus-visible:outline-none"
+        aria-controls="mobile-nav-menu"
+        className="p-2 rounded-md focus-visible:outline-2 focus-visible:outline-[var(--color-gold)] focus-visible:outline-offset-2"
       >
         <motion.div animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.25 }}>
           {isOpen ? (
@@ -69,7 +70,7 @@ export default function BurgerMenu() {
             transition={{ duration: 0.2 }}
             className="absolute top-12 left-0 w-56 bg-white shadow-xl rounded-xl border border-[var(--color-border)] overflow-hidden z-50"
           >
-            <nav aria-label="Mobile navigation">
+            <nav id="mobile-nav-menu" aria-label="Mobile navigation">
               <ul className="py-2">
                 {navLinks.map((item) => (
                   <li key={item.href}>

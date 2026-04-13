@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm run:*)",
       "Bash(npm install:*)",
-      "Bash(ls C:/Projects/argatia/argatia-winery/src/app/[locale]/)"
+      "Bash(ls C:/Projects/argatia/argatia-winery/src/app/[locale]/)",
+      "Bash(npm list:*)"
     ]
   }
 }

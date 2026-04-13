@@ -44,6 +44,9 @@ Build a modern, bilingual (Greek/English) marketing website for **Argatia Winery
 | Data fetching (admin) | SWR | Stale-while-revalidate, auto-revalidation on focus |
 | Static pages | ISR (revalidate: 3600) | Fast, cacheable; content rarely changes |
 | Admin routing | `/admin/**` outside locale routing | No Header/Footer needed; avoids locale middleware conflicts |
+| Public article rendering | Server component + `ArticleContent` client component | SSR fetches Firestore data → page arrives pre-rendered; `ArticleContent` runs DOMPurify post-hydration (browser-only API); bundle 285 kB → 132 kB |
+| Root layout `lang` attribute | `getLocale()` from `next-intl/server` with `"el"` fallback | Locale layout must not render `<html>/<body>` (nesting causes hydration mismatch); root layout sets `lang` for the single true `<html>` element |
+| Contact form delivery | Server logs only (Vercel Functions) | No email service configured; rate-limited API route validates and logs; wire Resend/SendGrid pre-launch |
 
 ---
 
@@ -303,38 +306,43 @@ Auth is entirely client-side (no server session cookies). The Firestore rules ar
 - `src/app/admin/news/page.tsx` — Admin news list (all articles incl. drafts), publish/featured toggles
 - `src/app/admin/news/new/page.tsx` — Create article
 - `src/app/admin/news/[id]/page.tsx` — Edit article (loading/404 states)
-- `src/app/[locale]/news/[id]/page.tsx` — Public article view; DOMPurify-sanitized HTML rendering
+- `src/app/[locale]/news/[id]/page.tsx` — Public article view; server-rendered; `generateMetadata` with OG tags; `ArticleContent` client component for DOMPurify post-hydration sanitization
 
 **Integrations:**
 - Home page news section replaced with `<FeaturedNews />`
 - News listing page replaced with `<NewsGrid />` (async server component)
 - Admin dashboard "coming soon" placeholder removed
 
-### Week 5 — Performance, Security & Polish
+### Week 5 — Performance, Security & Polish ✅ Complete
 
-- [ ] **`@tailwindcss/typography` plugin** — install and configure `prose` styles for public article body; ensure gold/serif overrides match brand
-- [ ] **`next/image` audit** — verify `priority` on all hero images; add explicit `sizes` props to all `<Image>` components; lazy load below-the-fold images
-- [ ] **Contact form API route** (`src/app/api/contact/route.ts`) — wire up the contact form (currently falls back to `mailto:`); server-side validation; rate limiting (5 req/hr per IP using in-memory or Upstash)
-- [ ] **JSON-LD structured data** — `NewsArticle` schema on `/[locale]/news/[id]`; `Organization` + `WineProduct` schemas on home/wines pages
-- [ ] **`sitemap.xml`** — static pages + dynamic news article URLs (`/api/news` feed); both locales
-- [ ] **`robots.txt`** — allow `/`, disallow `/admin`
-- [ ] **Lighthouse audit** — run on Home, News, Article pages; target > 90 Performance, Accessibility, Best Practices, SEO; fix any regressions
-- [ ] **WCAG 2.1 AA pass** — focus ring visibility, colour contrast ratios, skip-link, screen reader labels on icon buttons
-- [ ] **Firestore rules finalisation** — replace `REPLACE_WITH_OWNER_UID` with real UID; deploy rules
-- [ ] **ISR on news listing** — add `revalidate` export to `/[locale]/news/page.tsx` once Firebase credentials are live
+**Architecture fixes (post-Week-4 bugs):**
+- **Hydration mismatch fixed** — `[locale]/layout.tsx` was rendering `<html lang><body>` nested inside root layout's `<html><body>`. Browser auto-corrected the invalid HTML, React DOM didn't match, entire tree was regenerated client-side on every navigation. Fix: locale layout no longer renders `<html>/<body>`; root layout uses `getLocale()` from `next-intl/server` to set `lang` (falls back to `"el"` for non-locale routes like `/admin`)
+- **News article page converted to server component** — was `"use client"` + SWR, causing a visible loading skeleton on every navigation. Now fetches directly from Firestore during SSR; page arrives pre-rendered. Bundle: 285 kB → 132 kB. `generateMetadata` added for per-article OG tags. `ArticleContent` client component handles DOMPurify sanitization post-hydration
+
+**Week 5 tasks:**
+- [x] **`@tailwindcss/typography` plugin** — already installed (v0.5.19); prose overrides in `globals.css`; article page uses `prose` classes via `ArticleContent`
+- [x] **`next/image` audit** — `priority` on logo + article hero; `sizes` added to all bottle images; lazy load on below-fold images
+- [x] **Contact form API route** (`src/app/api/contact/route.ts`) — server-side validation; in-memory rate limiting (5 req/hr per IP); form wired to API (no more mailto fallback); logs submissions to server console (Vercel Functions logs); TODO: wire email service (Resend/SendGrid) for actual delivery
+- [x] **JSON-LD structured data** — `NewsArticle` on `/[locale]/news/[id]`; `Winery` schema on home; `ItemList + Product` on wines page
+- [x] **`sitemap.xml`** — `src/app/sitemap.ts`; static pages × 2 locales + dynamic news articles (fetched from `/api/news`); 1h ISR revalidation
+- [x] **`robots.txt`** — `src/app/robots.ts`; allow `/`, disallow `/admin` + `/api/`
+- [ ] **Lighthouse audit** — run on Home, News, Article pages after Firebase is live; target > 90 all categories
+- [x] **WCAG 2.1 AA pass** — focus rings on all interactive elements; skip-link in locale layout; `aria-label` on language switcher; burger button `aria-controls` + proper `focus-visible` gold ring (previously `outline-none` which removed the ring entirely)
+- [ ] **Firestore/Storage rules finalisation** — replace `REPLACE_WITH_OWNER_UID` in `storage.rules` with real UID; `firebase deploy --only firestore:rules,storage`
+- [x] **ISR on news listing** — `export const revalidate = 3600` on `/[locale]/news/page.tsx`
 
 ### Week 6 — SEO, Docs & Launch
 
-- JSON-LD structured data: `Organization`, `WineProduct`, `NewsArticle` schemas
-- `sitemap.xml` (static pages + dynamic news slugs)
-- `robots.txt` (allow `/`, disallow `/admin`)
-- `hreflang` alternates on every page (already in `generateMetadata`)
-- Documentation: `README.md`, `ARCHITECTURE.md`, `CONTRIBUTING.md`, `API.md`
-- JSDoc on all lib functions and hooks
-- Cross-browser testing (Chrome, Firefox, Safari, Edge)
-- Deploy to Vercel (`argatia.gr`), Firebase rules deployed
-- Vercel Analytics + Google Analytics 4 setup
-- Owner walkthrough: admin login, create/edit/publish news, image upload, featured toggle
+- [ ] Email delivery for contact form — wire Resend / SendGrid / SMTP (API key + `from` address required)
+- [ ] Lighthouse audit — run after Firebase credentials are live; fix any regressions
+- [ ] Firestore + Storage rules — replace `REPLACE_WITH_OWNER_UID`, deploy
+- [ ] `hreflang` alternates — already in `generateMetadata` on all pages; verify in GSC after deploy
+- [ ] Documentation: `README.md`, `ARCHITECTURE.md`, `CONTRIBUTING.md`, `API.md`
+- [ ] JSDoc on all lib functions and hooks
+- [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- [ ] Deploy to Vercel (`argatia.gr`), Firebase rules deployed
+- [ ] Vercel Analytics + Google Analytics 4 setup
+- [ ] Owner walkthrough: admin login, create/edit/publish news, image upload, featured toggle
 
 ---
 
@@ -352,15 +360,15 @@ Auth is entirely client-side (no server session cookies). The Firestore rules ar
 
 ## Security checklist
 
-- [ ] Firestore rules: public read only `published == true`, writes require owner UID
-- [ ] Storage rules: public read, owner-only write
-- [ ] `REPLACE_WITH_OWNER_UID` replaced in both rule files before deploy
-- [ ] DOMPurify sanitisation on all Markdown rendered content
-- [ ] Input validation (Zod) on all API routes
-- [ ] Rate limiting on `/api/contact` (5/hr) and auth (Firebase native, 5 attempts)
-- [ ] Security response headers in `next.config.ts` (X-Frame-Options, X-Content-Type-Options, etc.)
-- [ ] `robots.txt` disallows `/admin`
-- [ ] `.env.local` never committed (confirmed in `.gitignore`)
+- [x] Firestore rules: public read only `published == true`, writes require owner UID (`firestore.rules`)
+- [x] Storage rules: public read, owner-only write (`storage.rules`)
+- [ ] `REPLACE_WITH_OWNER_UID` replaced in `storage.rules` before deploy (Firestore rules already have real UID)
+- [x] DOMPurify sanitisation on rendered article HTML — client-side via `ArticleContent` post-hydration
+- [ ] Input validation (Zod) on all API routes — currently manual validation; Zod optional upgrade
+- [x] Rate limiting on `/api/contact` — 5 req/hr per IP (in-memory); Firebase Auth handles login rate limiting natively
+- [x] Security response headers in `next.config.ts` (X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy)
+- [x] `robots.txt` disallows `/admin` and `/api/`
+- [x] `.env.local` never committed (confirmed in `.gitignore`)
 
 ---
 

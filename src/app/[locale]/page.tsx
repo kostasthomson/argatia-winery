@@ -29,6 +29,39 @@ export async function generateMetadata({
   };
 }
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Winery",
+  name: "Αργατία Οινοποιείο",
+  alternateName: "Argatia Winery",
+  url: "https://argatia.gr",
+  logo: "https://argatia.gr/images/logo.png",
+  description:
+    "Βιολογικό οινοποιείο στο Ροδοχώρι Νάουσας, Μακεδονία. Organic winery in Rodochori, Naoussa, Macedonia, Greece.",
+  foundingDate: "2000",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Ροδοχώρι",
+    addressLocality: "Νάουσα",
+    addressRegion: "Ημαθία",
+    addressCountry: "GR",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 40.63,
+    longitude: 22.06,
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "info@argatia.gr",
+    contactType: "customer service",
+  },
+  sameAs: [
+    "https://www.instagram.com/argatia_winery",
+    "https://www.facebook.com/argatia",
+  ],
+};
+
 export default function HomePage() {
   const hero = useTranslations("home.hero");
   const about = useTranslations("home.about");
@@ -39,6 +72,10 @@ export default function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       {/* ══════════════════════════════════════════
           HERO SECTION
           Full-viewport background image with fade-in headline.
@@ -126,6 +163,7 @@ export default function HomePage() {
                       alt={wine[`name_el`]}
                       width={120}
                       height={200}
+                      sizes="120px"
                       className="h-44 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />

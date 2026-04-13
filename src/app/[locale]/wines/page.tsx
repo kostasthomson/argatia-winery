@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -6,6 +6,37 @@ import winesDataRaw from "@/data/wines.json";
 import type { Wine } from "@/types/wine";
 
 const winesData = winesDataRaw as Wine[];
+
+function buildWineListJsonLd(locale: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: locale === "el" ? "Κρασιά Αργατία" : "Argatia Wines",
+    itemListElement: winesData.map((wine, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Product",
+        name: locale === "el" ? wine.name_el : (wine.name_en ?? wine.name_el),
+        description:
+          locale === "el"
+            ? wine.description_el
+            : (wine.description_en ?? wine.description_el),
+        image: `https://argatia.gr${wine.image}`,
+        brand: { "@type": "Brand", name: "Αργατία / Argatia" },
+        manufacturer: {
+          "@type": "Organization",
+          name: "Αργατία Οινοποιείο",
+          url: "https://argatia.gr",
+        },
+        countryOfOrigin: "GR",
+        additionalProperty: wine.abv
+          ? [{ "@type": "PropertyValue", name: "ABV", value: `${wine.abv}%` }]
+          : undefined,
+      },
+    })),
+  };
+}
 
 interface WinesPageProps {
   params: Promise<{ locale: string }>;
@@ -29,12 +60,19 @@ export async function generateMetadata({ params }: WinesPageProps): Promise<Meta
  * Static data from /data/wines.json, labels from next-intl translations.
  */
 export default function WinesPage() {
+  const locale = useLocale();
   const t = useTranslations("wines");
 
   const wineKeys = ["red", "white", "nevma"] as const;
+  const wineListJsonLd = buildWineListJsonLd(locale);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(wineListJsonLd) }}
+      />
+
       {/* ══════════════════════════════════════════
           PAGE HERO
       ══════════════════════════════════════════ */}
@@ -89,6 +127,7 @@ export default function WinesPage() {
                         alt={wine[`name_el`]}
                         width={200}
                         height={340}
+                        sizes="(max-width: 768px) 200px, 200px"
                         className="relative h-80 w-auto object-contain drop-shadow-xl transition-transform duration-500 group-hover:-translate-y-3"
                         loading="lazy"
                       />

@@ -57,21 +57,17 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir="ltr">
-      <body>
-        <NextIntlClientProvider messages={messages}>
-          {/* Skip to main content for accessibility */}
-          <a href="#main-content" className="skip-link">
-            {locale === "el" ? "Μετάβαση στο κύριο περιεχόμενο" : "Skip to main content"}
-          </a>
-          <Header />
-          {/* pt-20/pt-24 offsets the fixed header height on mobile/desktop */}
-          <main id="main-content" className="flex flex-col min-h-screen pt-20 md:pt-24">
-            {children}
-          </main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      {/* Skip to main content for accessibility */}
+      <a href="#main-content" className="skip-link">
+        {locale === "el" ? "Μετάβαση στο κύριο περιεχόμενο" : "Skip to main content"}
+      </a>
+      <Header />
+      {/* pt-20/pt-24 offsets the fixed header height on mobile/desktop */}
+      <main id="main-content" className="flex flex-col min-h-screen pt-20 md:pt-24">
+        {children}
+      </main>
+      <Footer />
+    </NextIntlClientProvider>
   );
 }

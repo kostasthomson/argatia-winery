@@ -2,6 +2,9 @@ import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import NewsGrid from "@/components/news/news-grid";
 
+// Revalidate cached page every hour; ISR keeps content fresh without on-demand rebuilds.
+export const revalidate = 3600;
+
 interface NewsPageProps {
   params: Promise<{ locale: string }>;
 }

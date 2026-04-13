@@ -1,82 +1,67 @@
-"use client";
-
-import { useParams } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
-import DOMPurify from "dompurify";
 import { Link } from "@/i18n/navigation";
-import { useNewsItem } from "@/hooks/useNews";
+import ArticleContent from "@/components/news/article-content";
 
-export default function NewsArticlePage() {
-  const { id } = useParams<{ id: string }>();
-  const locale = useLocale();
-  const t = useTranslations("news");
-  const { article, isLoading, error } = useNewsItem(id);
+// Always render on demand — article IDs aren't known at build time
+// and Firestore can't be called without live credentials.
+export const dynamic = "force-dynamic";
 
-  // Loading state
-  if (isLoading) {
-    return (
-      <>
-        <section
-          className="relative py-40 text-center text-white -mt-20 md:-mt-24"
-          style={{
-            background:
-              "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.45)), url('/images/vineyard.jpg') center/cover no-repeat",
-          }}
-        >
-          <div className="container mx-auto px-6 max-w-3xl">
-            <div className="h-10 bg-white/20 rounded mx-auto w-2/3 animate-pulse" />
-          </div>
-        </section>
-        <div className="section">
-          <div className="container mx-auto px-6 max-w-3xl space-y-4 animate-pulse">
-            <div className="h-4 bg-gray-200 rounded w-1/4" />
-            <div className="h-6 bg-gray-200 rounded w-full" />
-            <div className="h-4 bg-gray-200 rounded w-full" />
-            <div className="h-4 bg-gray-200 rounded w-3/4" />
-          </div>
-        </div>
-      </>
-    );
+interface ArticlePageProps {
+  params: Promise<{ locale: string; id: string }>;
+}
+
+export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+  const { locale, id } = await params;
+  try {
+    const { getNewsItemById, toClientNewsItem } = await import("@/lib/news");
+    const item = await getNewsItemById(id);
+    if (!item || !item.published) return {};
+    const article = toClientNewsItem(item);
+    const title = locale === "el" ? article.title_el : (article.title_en ?? article.title_el);
+    const description =
+      locale === "el"
+        ? (article.excerpt_el ?? undefined)
+        : (article.excerpt_en ?? article.excerpt_el ?? undefined);
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        images: article.imageUrl ? [article.imageUrl] : undefined,
+        type: "article",
+        publishedTime: article.date,
+        modifiedTime: article.updatedAt,
+      },
+      alternates: {
+        canonical: `/${locale}/news/${id}`,
+        languages: { el: `/el/news/${id}`, en: `/en/news/${id}` },
+      },
+    };
+  } catch {
+    return {};
+  }
+}
+
+export default async function NewsArticlePage({ params }: ArticlePageProps) {
+  const { locale, id } = await params;
+  const t = await getTranslations({ locale, namespace: "news" });
+
+  let article;
+  try {
+    const { getNewsItemById, toClientNewsItem } = await import("@/lib/news");
+    const item = await getNewsItemById(id);
+    if (!item || !item.published) notFound();
+    article = toClientNewsItem(item!);
+  } catch {
+    notFound();
   }
 
-  // Error / not found
-  if (error || !article) {
-    return (
-      <>
-        <section
-          className="relative py-40 text-center text-white -mt-20 md:-mt-24"
-          style={{
-            background:
-              "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.45)), url('/images/vineyard.jpg') center/cover no-repeat",
-          }}
-        >
-          <div className="container mx-auto px-6 max-w-3xl">
-            <h1
-              className="text-4xl md:text-5xl font-light tracking-widest"
-              style={{ fontFamily: "Georgia, serif" }}
-            >
-              {t("title")}
-            </h1>
-          </div>
-        </section>
-        <div className="section">
-          <div className="container mx-auto px-6 max-w-3xl text-center py-16">
-            <p className="text-4xl mb-4" aria-hidden="true">🔍</p>
-            <p className="text-lg font-light text-[var(--color-text-muted)] mb-6">
-              {locale === "el" ? "Το άρθρο δεν βρέθηκε." : "Article not found."}
-            </p>
-            <Link href="/news" className="btn btn-outline text-sm tracking-widest uppercase">
-              {t("backToNews")}
-            </Link>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  const title =
-    locale === "el" ? article.title_el : (article.title_en ?? article.title_el);
+  const title = locale === "el" ? article.title_el : (article.title_en ?? article.title_el);
   const content =
     locale === "el" ? article.content_el : (article.content_en ?? article.content_el);
   const imageAlt =
@@ -88,25 +73,43 @@ export default function NewsArticlePage() {
     { year: "numeric", month: "long", day: "numeric" },
   );
 
-  // Sanitize HTML content with DOMPurify
-  const sanitizedContent = DOMPurify.sanitize(content, {
-    ALLOWED_TAGS: [
-      "h2", "h3", "h4", "p", "br", "hr",
-      "strong", "em", "u", "s", "del",
-      "ul", "ol", "li",
-      "blockquote", "pre", "code",
-      "a", "img",
-      "div", "span",
-    ],
-    ALLOWED_ATTR: [
-      "href", "target", "rel",
-      "src", "alt", "width", "height",
-      "class", "style",
-    ],
-  });
+  const newsArticleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: title,
+    description:
+      locale === "el"
+        ? (article.excerpt_el ?? title)
+        : (article.excerpt_en ?? article.excerpt_el ?? title),
+    image: article.imageUrl ?? undefined,
+    datePublished: article.date,
+    dateModified: article.updatedAt ?? article.date,
+    author: {
+      "@type": "Person",
+      name: article.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Αργατία Οινοποιείο",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://argatia.gr/images/logo.png",
+      },
+    },
+    inLanguage: locale === "el" ? "el" : "en",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://argatia.gr/${locale}/news/${article.id}`,
+    },
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsArticleJsonLd) }}
+      />
+
       {/* Hero */}
       <section
         className="relative py-40 text-center text-white -mt-20 md:-mt-24"
@@ -158,10 +161,10 @@ export default function NewsArticlePage() {
             </div>
           )}
 
-          {/* HTML content rendered with DOMPurify sanitization */}
-          <div
+          {/* HTML content — DOMPurify-sanitized client-side after hydration */}
+          <ArticleContent
+            html={content}
             className="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-wide prose-a:text-[var(--color-gold)] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-[var(--color-gold)] prose-blockquote:text-[var(--color-text-muted)] prose-img:rounded-lg prose-img:my-4 prose-hr:border-[var(--color-border)]"
-            dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
 
           {/* Bottom nav */}
