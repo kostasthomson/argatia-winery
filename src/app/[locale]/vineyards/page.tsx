@@ -38,7 +38,7 @@ export default function VineyardsPage() {
           PAGE HERO
       ══════════════════════════════════════════ */}
 			<section
-				className="relative py-40 text-center text-white"
+				className="relative h-[480px] flex items-center justify-center text-center text-white"
 				style={{
 					background:
 						"linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.45)), url('/images/winery.jpeg') center/cover no-repeat",

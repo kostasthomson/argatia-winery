@@ -120,7 +120,7 @@ export default async function NewsArticlePage({ params }: ArticlePageProps) {
 
 			{/* Hero */}
 			<section
-				className="relative py-40 text-center text-white -mt-20 md:-mt-24"
+				className="relative h-[480px] flex items-center justify-center text-center text-white -mt-20 md:-mt-24"
 				style={{
 					background: article.imageUrl
 						? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.45)), url('${article.imageUrl}') center/cover no-repeat`

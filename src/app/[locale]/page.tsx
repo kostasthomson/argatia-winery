@@ -248,7 +248,7 @@ export default function HomePage() {
 				className="relative py-32 text-center text-white"
 				style={{
 					background:
-						"linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/winery.jpeg') center/cover no-repeat fixed",
+						"linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/vineyard.jpg') center/cover no-repeat fixed",
 				}}
 				aria-label="Vineyard CTA"
 			>

@@ -65,11 +65,15 @@ export default function Header() {
 
 	const linkColor = isHero ? "text-white" : "text-[var(--color-dark)]";
 
-	// logo.png has white background — no invert filter needed.
-	// In transparent (hero) mode, wrap in a pill so white bg reads against dark hero.
 	const logoPillClass = scrolled
 		? ""
-		: "bg-white/90 rounded-2xl px-4 py-1 shadow-sm";
+		: "rounded-xl px-5 py-1.5 bg-white/20 backdrop-blur-sm";
+	const logoPillStyle = scrolled
+		? {}
+		: {
+				boxShadow:
+					"inset 0 0 0 1px rgba(198,157,83,0.45), 0 2px 20px rgba(198,157,83,0.22), 0 1px 6px rgba(0,0,0,0.15)",
+			};
 
 	const localeColor = isHero
 		? "border-white text-white hover:bg-white hover:text-[var(--color-dark)]"
@@ -107,7 +111,10 @@ export default function Header() {
 					<div className="flex justify-center items-center">
 						<Link href="/" aria-label="Argatia Winery — home">
 							{/* <div className={`transition-all duration-300`}> */}
-							<div className={`transition-all duration-300 ${logoPillClass}`}>
+							<div
+								className={`transition-all duration-300 ${logoPillClass}`}
+								style={logoPillStyle}
+							>
 								<Image
 									src={logoImg}
 									alt="Argatia Winery Logo"
