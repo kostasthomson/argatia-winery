@@ -22,7 +22,7 @@
     "dompurify": "^3.3.3",
     "firebase": "^12.12.0",
     "framer-motion": "^12.6.2",
-    "next": "15.2.4",
+    "next": "15.2.8",
     "next-intl": "^4.9.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
